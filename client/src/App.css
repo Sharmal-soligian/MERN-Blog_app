@@ -1,0 +1,42 @@
+body {
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+form.login, form.register {
+    max-width: 400px;
+    margin: 0 auto;
+
+    & h1 {
+        text-align: center;
+    }
+}
+
+input {
+    display: block;
+    color: rgb(46, 42, 42);
+    margin-bottom: 5px;
+    width: 100%;
+    padding: 9px 7px;
+    border: 3px solid #ddd;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+button {
+    width: 100%;
+    display: block;
+    background-color: #555;
+    border: none;
+    border-radius: 5px;
+    padding: 7px 0;
+    color: #fff;
+
+    &:active {
+        background-color: #777676;
+    }
+}
