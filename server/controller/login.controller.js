@@ -36,6 +36,7 @@ router.post('/', async(req, res) => {
         res.cookie('token', token, { httpOnly: true, sameSite: 'Strict', secure: true }).status(http_codes.OK).json({
             message: 'Successfully logged in',
             username: username,
+            id: registered_user._id
         });
     } catch(err) {
         console.error('Error loggin: ' + err);

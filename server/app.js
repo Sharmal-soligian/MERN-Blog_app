@@ -1,6 +1,7 @@
 const express = require('express');
 const apiRoutes = require('./routes/api.routes');
 const cors = require('cors');
+const cookie_parser = require('cookie-parser');
 
 // Env setting
 require('dotenv').config();
@@ -14,6 +15,7 @@ app.use(cors({
     origin: 'http://localhost:3000'
 }));
 app.use(express.json());
+app.use(cookie_parser());
 app.use('/', apiRoutes);
 
 app.get('/', (req, res) => {
