@@ -7,7 +7,7 @@ const secretKey = 'dbfkbdbkdb55vd55dsv55';
 router.get('/', async(req, res) => {
     const { token } = req.cookies;
     try {
-        const verify = await jwt.verify(token, secretKey);
+        const verify = jwt.verify(token, secretKey);
         res.status(http_codes.OK).json(verify);
     } catch(err) {
         console.error('Error verifying cookie: ' + err);

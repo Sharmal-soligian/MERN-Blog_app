@@ -32,7 +32,7 @@ router.post('/', async(req, res) => {
             });
         }
 
-        const token = await jwt.sign({ userId: registered_user._id }, secretKey)
+        const token = await jwt.sign({ id: registered_user._id }, secretKey)
         res.cookie('token', token, { httpOnly: true, sameSite: 'Strict', secure: true }).status(http_codes.OK).json({
             message: 'Successfully logged in',
             username: username,

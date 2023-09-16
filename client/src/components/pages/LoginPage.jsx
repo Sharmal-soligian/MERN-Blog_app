@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Navigate } from 'react-router-dom';
+import { UserContext } from '../UserContext';
 
 const LoginForm = styled.form``;
 
@@ -8,6 +9,7 @@ const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [redirect, setRedirect] = useState(false);
+  const { setUserInfo } = useContext(UserContext);
 
   const login = async (e) => {
     e.preventDefault();
@@ -21,7 +23,10 @@ const LoginPage = () => {
       });
 
       if((await res).ok) {
-        setRedirect(true);
+        res.json().then(info => {
+          setUserInfo(info);
+          setRedirect(true);
+        })
       }
     } catch(err) {
       console.error('Error: ', err.message);

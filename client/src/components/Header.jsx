@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Link, json } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { UserContext } from './UserContext';
 
@@ -28,20 +28,24 @@ const Login = styled.a``;
 const Register = styled.a``;
 
 const Logout = styled.a`
-  
+  cursor: pointer;
 `;
 
 const Header = () => {
+  const navigate = useNavigate();
   const { userInfo, setUserInfo } = useContext(UserContext);
+  
+
   useEffect(() => {
+
     fetch('http://localhost:5000/profile', {
       credentials: 'include'
     }).then(res => {
       res.json().then(info => {
-        setUserInfo(info)
+        setUserInfo(info);
       })
     })
-  }, []);
+  }, [setUserInfo]);
 
   const logout = () => {
     fetch('http://localhost:5000/profile/logout', {
@@ -49,9 +53,10 @@ const Header = () => {
       method: 'POST'
     });
     setUserInfo(null);
+    navigate('/');
   }
 
-  const username = userInfo?.username;
+  const userId = userInfo?.id;
 
   return (
     <HeaderContainer>
@@ -59,7 +64,7 @@ const Header = () => {
           <Link to="/">Blog</Link>
         </Logo>
         <Nav>
-          {username && (
+          {userId && (  
             <>
               <Link to={'/create'} >
                 Create new article
@@ -67,7 +72,7 @@ const Header = () => {
               <Logout onClick={logout}>Logout</Logout>
             </>
           )}
-          {!username && (
+          {!userId && ( 
             <>
               <Login>
                 <Link to="/login">Login</Link>
