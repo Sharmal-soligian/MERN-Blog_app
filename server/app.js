@@ -16,6 +16,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(cookie_parser());
+app.use('/uploads', express.static(__dirname + '/uploads'));
 app.use('/', apiRoutes);
 
 app.get('/', (req, res) => {

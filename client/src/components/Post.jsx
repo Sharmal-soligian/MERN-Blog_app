@@ -1,5 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { formatISO9075 } from 'date-fns';
+import { environment } from '../environment/environment';
+
+const api_url = environment.base_Url;
 
 const Poster = styled.div`
   display: flex;
@@ -36,6 +40,7 @@ const Info = styled.p`
 
 const Author = styled.a`
   color: #333;
+  text-decoration: underline;
 `;
 
 const Time = styled.time``;
@@ -45,19 +50,19 @@ const Summary = styled.p`
   line-height: 1.4rem;
 `;
 
-const Post = () => {
+const Post = ({title, summary, cover, content, createdAt, author}) => {
   return (
       <Poster>
         <ImageContainer>
-          <ImageOne src='https://buffer.com/resources/content/images/size/w2000/format/avif/2023/09/ashes-sitoula-UfEyDdXlRp8-unsplash--1-.jpg' />
+          <ImageOne src={ `${api_url}` + '/' + cover } />
         </ImageContainer>
         <Texts>
-          <h2>Small Business, Big Lessons is a podcast from Buffer that goes behind the scenes.</h2>
+          <h2>{ title }</h2>
           <Info>
-            <Author>Sharmal soligian</Author>
-            <Time>2023-07-10 10:00</Time>
+            <Author>{ author?.username }</Author>
+            <Time>{ formatISO9075(new Date(createdAt)) }</Time>
           </Info>
-          <Summary>But there was another reason that media newsletters started to take off around the 1940s. At the time, public trust in mainstream media was wavering.</Summary>
+          <Summary>{ summary }</Summary>
         </Texts>
       </Poster>
   );
